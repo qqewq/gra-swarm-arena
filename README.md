@@ -1,3 +1,5 @@
+https://orcid.org/my-orcid?orcid=0009-0004-1872-1153
+https://doi.org/10.5281/zenodo.19222669
 # GRA Swarm Arena
 
 **GRA Swarm Arena** is an abstract, game-like multi-agent simulation: swarms of simple agents move on a 2D grid with hazards (“traps”) and goal cells, trying to reduce the **entropy** of their paths using a simplified GRA-like coordination mechanism.

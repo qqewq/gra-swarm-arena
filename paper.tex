@@ -1,0 +1,144 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{url}
+
+\title{GRA Swarm Arena: An Abstract Multi-Agent Simulation for Entropy-Guided Coordination}
+\author{AAA\\
+\small Independent Researcher\\
+\small \texttt{youremail@example.com}}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We introduce \emph{GRA Swarm Arena}, an abstract grid-based multi-agent simulation
+designed to study entropy-guided coordination in swarms of simple agents.
+Agents move on a 2D arena with hazards and goal cells and may employ different
+strategies, including a simplified GRA-like coordinator that nudges them
+towards lower-entropy trajectories.
+The environment is intentionally non-domain-specific and is intended for
+educational and research use rather than any real-world military applications.
+\end{abstract}
+
+\section{Introduction}
+
+Multi-agent systems and swarm coordination are widely studied in robotics,
+control theory, and artificial intelligence.
+In many scenarios, agents must navigate environments with uncertainty, hazards,
+and limited information.
+We propose \emph{GRA Swarm Arena} as a minimal, game-like environment to explore
+how a simple ``GRA-like'' mechanism can reduce the entropy of agent trajectories
+and thus improve coherence of swarm behaviour.
+
+The project is implemented as an open-source Python repository\footnote{URL will be added upon publication.}
+and is meant as a playground for experimenting with entropy-based metrics,
+strategy comparison, and basic coordination schemes.
+
+\section{Environment}
+
+The arena is a discrete $N \times N$ grid.
+Each cell can be:
+\begin{itemize}
+  \item empty (neutral),
+  \item a \emph{trap} with an associated penalty,
+  \item a \emph{goal} cell.
+\end{itemize}
+
+A configuration file (YAML) specifies:
+\begin{itemize}
+  \item grid size $N$,
+  \item number and types of traps,
+  \item start positions for agents,
+  \item goal positions.
+\end{itemize}
+
+Agents start from one of the designated start cells and attempt to reach any goal cell within
+a fixed number of steps.
+
+\section{Agents and Strategies}
+
+Each agent occupies a grid cell and can move in four directions: up, down, left, right,
+subject to arena bounds.
+We currently implement three basic strategies:
+\begin{itemize}
+  \item \textbf{Random}: choose a move uniformly at random.
+  \item \textbf{Greedy}: choose a move that reduces the Manhattan distance to a goal cell.
+  \item \textbf{GRA-guided}: use a hint function provided by a GRA-like coordinator.
+\end{itemize}
+
+Agents record their paths as sequences of visited cells, which allows us to compute
+trajectory statistics such as path entropy.
+
+\section{Entropy Metric}
+
+Given a path $P = (c_1, c_2, \dots, c_T)$, where each $c_t$ is a cell on the grid,
+we consider the empirical distribution over visited cells and define a simple
+entropy metric
+\[
+H(P) = - \sum_{c} p(c) \log p(c),
+\]
+where $p(c)$ is the fraction of visits to cell $c$ along the path.
+This quantity serves as a proxy for ``chaotic'' behaviour: high entropy corresponds
+to widely spread, repetitive, or unfocused trajectories.
+
+\section{GRA-like Coordination}
+
+The GRA coordinator operates at game level.
+At each time step, it may:
+\begin{itemize}
+  \item evaluate current paths of agents via the entropy metric,
+  \item provide a hint function to GRA-guided agents that discourages revisiting
+        heavily overused cells.
+\end{itemize}
+
+In the current implementation, the hint function selects moves that minimize
+the count of visits to candidate next cells along the agent's own path.
+This can be seen as a very simple form of entropy regularization on trajectories.
+
+The GRA parameters (e.g.\ entropy weight, reset threshold) are exposed in configuration
+and can be swept in experiments.
+
+\section{Experiments}
+
+The repository includes Jupyter notebooks for basic experiments:
+\begin{itemize}
+  \item \emph{Entropy vs trap density}: vary the number of traps and observe how
+        mean path entropy changes.
+  \item \emph{Strategy comparison}: compare random, greedy, and GRA-guided strategies
+        in terms of mean path entropy and average steps to reach a goal.
+  \item \emph{GRA parameter sweep}: explore how different entropy-related parameters
+        affect swarm behaviour.
+\end{itemize}
+
+These experiments are intended as starting points; the environment can be extended
+with more complex strategies, reward structures, or observation models.
+
+\section{Discussion and Limitations}
+
+GRA Swarm Arena is intentionally minimal and abstract.
+It does not model real-world physics, sensors, or communications, and is not meant
+to approximate any specific operational scenario.
+Its main purpose is to provide a clean, reproducible sandbox where entropy-based
+coordination ideas can be tested and visualized.
+
+\section{Conclusion}
+
+We presented GRA Swarm Arena, a lightweight open-source environment for studying
+entropy-guided coordination in agent swarms.
+Future work may include richer agent models, learning-based strategies, and more
+sophisticated GRA-like coordinators that integrate multiple objectives.
+
+\section*{Acknowledgements}
+
+We thank the broader open-source community for tools and inspiration that made
+this project possible.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

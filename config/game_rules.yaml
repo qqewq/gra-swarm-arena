@@ -1,0 +1,4 @@
+step_cost: 0.01
+trap_hit_cost: 1.0
+goal_reward: 5.0
+max_episodes: 50

@@ -1,0 +1,23 @@
+gra-swarm-arena/
+  README.md
+  LICENSE
+  requirements.txt
+  config/
+    arena_default.yaml
+    agents_default.yaml
+    game_rules.yaml
+  src/
+    __init__.py
+    arena.py
+    agents.py
+    gra_core.py
+    simulation.py
+    metrics.py
+    visualize.py
+  docs/
+    concept_en.md
+    gra_entropy_theory.md
+  experiments/
+    exp_entropy_vs_traps.ipynb
+    exp_strategies_compare.ipynb
+    exp_gra_params_sweep.ipynb

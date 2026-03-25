@@ -1,0 +1,12 @@
+grid_size: 20        # arena size N x N
+num_traps: 40        # number of traps
+trap_types:
+  - name: pit
+    penalty: 1.0
+  - name: slow
+    penalty: 0.5
+start_positions:
+  - [0, 0]
+goal_positions:
+  - [19, 19]
+random_seed: 42

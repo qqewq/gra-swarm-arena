@@ -1,0 +1,10 @@
+num_agents: 20
+max_steps: 100
+vision_radius: 2
+strategies:
+  - random
+  - greedy
+  - gra_guided
+gra_params:
+  entropy_weight: 1.0
+  reset_threshold: 0.7
